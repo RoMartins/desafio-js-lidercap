@@ -10,6 +10,8 @@ O projeto é uma API RESTful construída com TypeScript e Node.js, seguindo prin
 - **Jest**: Framework de teste para JavaScript.
 - **ESLint**: Ferramenta de linting para identificar e corrigir problemas no código.
 - **Prettier**: Formatador de código.
+- **Docker:** Plataforma de contêineres para empacotar e distribuir a aplicação.
+- **Database:** Banco de dados em JSON com persistência automática.
 
 ### Rotas
 

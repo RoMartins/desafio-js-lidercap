@@ -11,7 +11,11 @@ RUN npm install
 # Copia todo o código fonte
 COPY . .
 
-# Roda o linter (se houver)
+#linter
+RUN npm run lint
+
+#testes
+RUN npm run test
 
 # Compila o código TypeScript para JavaScript
 RUN npm run build

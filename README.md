@@ -1,44 +1,50 @@
-# Desafio de Arquitetura de Código
+# Desafio de Arquitetura de Código - Lidercap
 
-Este repositório contém um desafio prático focado em arquitetura de código para aplicações. O objetivo é propor, implementar e documentar uma solução para um problema de organização e estruturação de projetos de software.
+Olá! Este é um projeto de desafio de arquitetura de código, projetado para ser simples de configurar e executar usando Docker.
 
-## Objetivo
+## Documentação
 
-Desenvolver uma aplicação que demonstre boas práticas de arquitetura de código, separação de responsabilidades, modularização e escalabilidade. O desafio pode envolver a criação de APIs, microsserviços, monólitos bem estruturados ou qualquer abordagem arquitetural relevante.
+Para mais detalhes sobre a arquitetura e as decisões de design do projeto, consulte os seguintes documentos:
 
-## Requisitos
+- [Documentação da Arquitetura](./ARCHITECTURE.md)
+- [Documentação Geral](./documentation.md)
 
-- Estruturar o projeto de forma clara e organizada.
-- Utilizar princípios SOLID e boas práticas de desenvolvimento.
-- Documentar as decisões arquiteturais tomadas.
-- Implementar testes automatizados (quando aplicável).
-- Fornecer instruções para execução e testes do projeto.
+## Como Executar o Projeto com Docker
 
-## Como começar
+**Requisito:** Para executar este projeto, você precisará ter o [Docker](https://docs.docker.com/get-docker/) e o [Docker Compose](https://docs.docker.com/compose/install/) instalados em sua máquina. Caso não tenha, basta seguir os links para a documentação oficial e instalá-los.
 
-1. Faça um fork deste repositório.
-2. Implemente sua solução na pasta apropriada.
-3. Documente suas decisões no arquivo `ARQUITETURA.md` (opcional).
-4. Envie um pull request com sua solução.
+Com o Docker e o Docker Compose instalados, siga os passos abaixo:
 
-## Sugestões
+1.  **Clone o repositório:**
 
-- Utilize frameworks e bibliotecas de sua preferência.
-- Foque na clareza e manutenibilidade do código.
-- Explique as escolhas feitas na documentação.
+    ```bash
+    git clone <url-do-repositorio>
+    cd desafio-js-lidercap
+    ```
 
-## Como rodar
+2.  **Execute o Docker Compose:**
 
-```bash
-# Instale as dependências
-npm install
+    O comando a seguir irá construir a imagem Docker e iniciar o contêiner da aplicação. A flag `--build` garante que a imagem será reconstruída, refletindo quaisquer alterações no código.
 
-# Execute a aplicação
-npm start
-```
+    ```bash
+    docker compose up --build
+    ```
 
-Adapte os comandos conforme a stack utilizada.
+    Após a conclusão, a aplicação estará rodando e acessível em `http://localhost:3000`.
 
----
+## Entendendo o Dockerfile
 
-Qualquer dúvida, abra uma issue!
+O `Dockerfile` é uma receita para criar a imagem Docker da nossa aplicação. Aqui está o que cada passo faz:
+
+| Comando                 | Descrição                                                                                      |
+| ----------------------- | ---------------------------------------------------------------------------------------------- |
+| `FROM node:22-alpine`   | Define a imagem base para nossa aplicação, que é uma versão leve do Node.js.                   |
+| `WORKDIR /usr/src/app`  | Cria um diretório de trabalho dentro do contêiner para organizar nosso código.                 |
+| `COPY package*.json ./` | Copia os arquivos de definição de pacotes para o contêiner.                                    |
+| `RUN npm install`       | Instala as dependências do projeto definidas no `package.json`.                                |
+| `COPY . .`              | Copia todo o código-fonte do projeto para o diretório de trabalho no contêiner.                |
+| `RUN npm run lint`      | Executa o linter para garantir que o código siga as diretrizes de estilo.                      |
+| `RUN npm run test`      | Executa os testes automatizados para garantir a qualidade e o funcionamento correto do código. |
+| `RUN npm run build`     | Compila o código TypeScript para JavaScript, que é o que o Node.js executa.                    |
+| `EXPOSE 3000`           | Informa ao Docker que o contêiner escutará na porta 3000 em tempo de execução.                 |
+| `CMD [...]`             | Define o comando padrão para executar a aplicação quando o contêiner for iniciado.             |
