@@ -18,7 +18,7 @@ Com o Docker e o Docker Compose instalados, siga os passos abaixo:
 1.  **Clone o repositório:**
 
     ```bash
-    git clone <url-do-repositorio>
+    git clone <https://github.com/RoMartins/desafio-js-lidercap.git>
     cd desafio-js-lidercap
     ```
 
