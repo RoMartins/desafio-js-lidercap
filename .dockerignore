@@ -1,0 +1,18 @@
+# Ignora dependências locais, pois elas serão instaladas dentro do container
+node_modules
+
+# Ignora a pasta de build, pois ela é gerada dentro do container
+dist
+
+# Ignora arquivos do git
+.git
+.gitignore
+
+# Ignora arquivos de ambiente local
+.env
+
+# Ignora arquivos de configuração do editor
+.vscode
+
+# Arquivos do próprio Docker
+Dockerfile
