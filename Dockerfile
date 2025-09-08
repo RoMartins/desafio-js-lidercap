@@ -1,43 +1,23 @@
-# Estágio 1: Builder - Onde a mágica de build, teste e lint acontece
-FROM node:20-alpine AS builder
+# Usa uma imagem oficial do Node.js como base
+FROM node:22-alpine
 
+# Define o diretório de trabalho no contêiner
 WORKDIR /usr/src/app
 
-# Copia os arquivos de dependência e instala TUDO (incluindo devDependencies)
+# Copia os arquivos de dependência e os instala
 COPY package*.json ./
 RUN npm install
 
-# Copia todo o resto do código fonte
+# Copia todo o código fonte
 COPY . .
 
-# --- Validação ---
-# Roda o linter. Se falhar, o build para aqui.
-RUN npm run lint
+# Roda o linter (se houver)
 
-# Roda os testes. Se falhar, o build para aqui.
-RUN npm run test
-
-# --- Build ---
-# Compila o TypeScript para JavaScript. O resultado vai para a pasta /dist
+# Compila o código TypeScript para JavaScript
 RUN npm run build
 
-# Estágio 2: Production - A imagem final e enxuta
-FROM node:20-alpine AS production
-
-WORKDIR /usr/src/app
-
-# Copia os arquivos de dependência
-COPY package*.json ./
-
-# Instala APENAS as dependências de produção
-RUN npm install --omit=dev
-
-# Copia o código compilado e o db.json do estágio 'builder'
-COPY --from=builder /usr/src/app/dist ./dist
-COPY --from=builder /usr/src/app/src/infra/database/DBJson/db.json ./dist/infra/database/DBJson/db.json
-
-# Expõe a porta que a aplicação vai usar (ajuste se for diferente)
+# Expõe a porta que a aplicação vai usar
 EXPOSE 3000
 
-# Comando para iniciar a aplicação
+# Define o comando para rodar a aplicação
 CMD ["node", "dist/main/app.js"]

@@ -5,9 +5,9 @@
     "main": "dist/app.js",
     "scripts": {
         "test": "jest ./tests",
-        "start": "node dist/app.ts",
-        "build": "tsc",
-        "dev": "nodemon --watch src -r tsconfig-paths/register --exec ts-node src/main/app.ts",
+        "start": "node dist/main/app.js",
+        "build": "ttsc",
+        "dev": "nodemon --watch src --exec ts-node src/main/app.ts",
         "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
         "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix"
     },
@@ -34,8 +34,8 @@
         "supertest": "^7.1.4",
         "ts-jest": "^29.4.1",
         "ts-node": "^10.9.2",
-        "tsconfig-paths": "^4.2.0",
-        "typescript": "^5.9.2",
-        "typescript-eslint": "^8.42.0"
+        "ttypescript": "^1.5.15",
+        "typescript": "^4.9.5",
+        "typescript-transform-paths": "^3.5.5"
     }
 }
